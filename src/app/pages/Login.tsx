@@ -29,11 +29,6 @@ export default function Login() {
     }
   };
 
-  const fillDemo = (type: ROLES) => {
-    setEmail(type === ROLES.TEACHER ? 'sarah.teacher@example.com' : 'john.student@example.com');
-    setPassword(type === ROLES.TEACHER ? 'password123' : 'password123');
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -46,24 +41,6 @@ export default function Login() {
           </Link>
           <h1 className="text-white text-2xl mb-1">Welcome back</h1>
           <p className="text-slate-400 text-sm">Sign in to your account</p>
-        </div>
-
-        {/* Demo buttons */}
-        <div className="flex gap-3 mb-6">
-          <button
-            type="button"
-            onClick={() => fillDemo(ROLES.TEACHER)}
-            className="flex-1 py-2 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-indigo-300 text-sm hover:bg-indigo-600/30 transition-colors"
-          >
-            Teacher Demo
-          </button>
-          <button
-            type="button"
-            onClick={() => fillDemo(ROLES.STUDENT)}
-            className="flex-1 py-2 rounded-lg bg-sky-600/20 border border-sky-500/30 text-sky-300 text-sm hover:bg-sky-600/30 transition-colors"
-          >
-            Student Demo
-          </button>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-white/5 border border-white/10 rounded-2xl p-8 space-y-5">
