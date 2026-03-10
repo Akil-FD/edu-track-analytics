@@ -1,0 +1,3 @@
+export declare const getTeacherAnalytics: import("express").RequestHandler<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>;
+export declare const getStudentAnalytics: import("express").RequestHandler<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>;
+//# sourceMappingURL=analyticsController.d.ts.map

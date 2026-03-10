@@ -1,0 +1,2 @@
+export declare const logTracking: import("express").RequestHandler<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>;
+//# sourceMappingURL=trackingController.d.ts.map

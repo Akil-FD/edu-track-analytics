@@ -1,0 +1,779 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* =============================================================================
+   GLOBAL REUSABLE COMPONENT CLASSES
+   All classes use @layer components so Tailwind utilities always win.
+   NOTE: In Tailwind v4, @apply cannot reference other custom classes.
+         Every derived class must inline the base class utilities directly.
+   ============================================================================= */
+
+@layer components {
+
+  /* ============================================================
+     APP LAYOUT
+     ============================================================ */
+
+  .app-layout {
+    @apply flex h-screen bg-slate-50 overflow-hidden;
+  }
+
+  .app-sidebar {
+    @apply hidden lg:flex w-64 bg-slate-900 flex-col flex-shrink-0;
+  }
+
+  .app-main {
+    @apply flex-1 flex flex-col overflow-hidden;
+  }
+
+  .app-topbar {
+    @apply lg:hidden flex items-center gap-4 px-4 py-3 bg-white border-b border-slate-200;
+  }
+
+  .app-content {
+    @apply flex-1 overflow-y-auto p-4 lg:p-8;
+  }
+
+  .mobile-overlay {
+    @apply fixed inset-0 z-50 lg:hidden;
+  }
+
+  .mobile-overlay-backdrop {
+    @apply absolute inset-0 bg-black/60;
+  }
+
+  .mobile-sidebar {
+    @apply absolute left-0 top-0 h-full w-64 bg-slate-900 flex flex-col;
+  }
+
+
+  /* ============================================================
+     SIDEBAR INTERNALS
+     ============================================================ */
+
+  .sidebar-brand {
+    @apply flex items-center gap-3 px-6 py-5 border-b border-white/10;
+  }
+
+  .sidebar-brand-name {
+    @apply text-white font-semibold text-sm;
+  }
+
+  .sidebar-brand-sub {
+    @apply text-xs;
+  }
+
+  .sidebar-nav {
+    @apply px-3 py-4 flex-1 overflow-y-auto;
+  }
+
+  .sidebar-nav-label {
+    @apply text-xs text-slate-500 uppercase tracking-wider px-3 mb-3;
+  }
+
+  /** Base nav item */
+  .sidebar-nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all;
+  }
+
+  /** Active — indigo (teacher portal) — base utilities inlined */
+  .sidebar-nav-item-active {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all bg-indigo-600 text-white;
+  }
+
+  /** Active — sky (student portal) — base utilities inlined */
+  .sidebar-nav-item-active-sky {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all bg-sky-600 text-white;
+  }
+
+  /** Inactive — base utilities inlined */
+  .sidebar-nav-item-inactive {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all text-slate-400 hover:bg-white/5 hover:text-white;
+  }
+
+  .sidebar-footer {
+    @apply px-3 py-4 border-t border-white/10;
+  }
+
+  .sidebar-user {
+    @apply flex items-center gap-3 px-3 py-2 mb-2;
+  }
+
+  .sidebar-avatar {
+    @apply w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold;
+  }
+
+  .sidebar-logout {
+    @apply w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-slate-400 hover:bg-red-500/10 hover:text-red-400 transition-all;
+  }
+
+
+  /* ============================================================
+     PAGE HEADER
+     ============================================================ */
+
+  .page-header {
+    @apply flex items-center justify-between;
+  }
+
+  .page-title {
+    @apply text-slate-800;
+  }
+
+  .page-subtitle {
+    @apply text-slate-500 text-sm mt-1;
+  }
+
+  .section-card-header {
+    @apply flex items-center justify-between mb-4;
+  }
+
+  .card-title {
+    @apply text-slate-700 mb-4;
+  }
+
+  .card-subtitle {
+    @apply text-slate-400 text-sm mb-5;
+  }
+
+
+  /* ============================================================
+     CARDS & PANELS
+     ============================================================ */
+
+  .card {
+    @apply bg-white rounded-2xl border border-slate-100 shadow-sm;
+  }
+
+  .card-p {
+    @apply bg-white rounded-2xl border border-slate-100 shadow-sm p-6;
+  }
+
+  .card-p5 {
+    @apply bg-white rounded-2xl border border-slate-100 shadow-sm p-5;
+  }
+
+  .glass-card {
+    @apply bg-white/5 border border-white/10 rounded-2xl;
+  }
+
+
+  /* ============================================================
+     STAT CARDS
+     ============================================================ */
+
+  .stat-card {
+    @apply bg-white rounded-2xl p-5 border border-slate-100 shadow-sm;
+  }
+
+  .stat-icon {
+    @apply w-10 h-10 rounded-xl flex items-center justify-center mb-3;
+  }
+
+  .stat-value {
+    @apply text-2xl font-bold text-slate-800;
+  }
+
+  .stat-label {
+    @apply text-slate-500 text-sm;
+  }
+
+
+  /* ============================================================
+     ICON CONTAINERS
+     ============================================================ */
+
+  .icon-box-sm {
+    @apply w-8 h-8 rounded-full flex items-center justify-center;
+  }
+
+  .icon-box-md {
+    @apply w-10 h-10 rounded-xl flex items-center justify-center;
+  }
+
+  .icon-box-lg {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center;
+  }
+
+  .icon-box-xl {
+    @apply w-16 h-16 rounded-2xl flex items-center justify-center;
+  }
+
+
+  /* ============================================================
+     BUTTONS
+     NOTE: Derived buttons inline the base (.btn) utilities directly.
+     ============================================================ */
+
+  /** Base — pair with a variant */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg text-sm transition-colors disabled:opacity-60;
+  }
+
+  /** Primary indigo — base inlined */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg text-sm transition-colors disabled:opacity-60 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white;
+  }
+
+  /** Large primary — base inlined */
+  .btn-primary-lg {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl text-sm transition-colors disabled:opacity-60 px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white;
+  }
+
+  /** Small primary — base inlined */
+  .btn-primary-sm {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg text-sm transition-colors disabled:opacity-60 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white;
+  }
+
+  /** Secondary outlined — base inlined */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg text-sm transition-colors disabled:opacity-60 px-4 py-2 border border-slate-200 text-slate-600 hover:bg-slate-50;
+  }
+
+  /** Danger red — base inlined */
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg text-sm transition-colors disabled:opacity-60 px-4 py-2 bg-red-600 hover:bg-red-700 text-white;
+  }
+
+  /** Ghost / icon button */
+  .btn-ghost {
+    @apply p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors;
+  }
+
+  /** Icon edit action */
+  .btn-icon-edit {
+    @apply p-2 rounded-lg text-slate-400 hover:bg-indigo-50 hover:text-indigo-600 transition-colors;
+  }
+
+  /** Icon delete action */
+  .btn-icon-delete {
+    @apply p-2 rounded-lg text-slate-400 hover:bg-red-50 hover:text-red-600 transition-colors;
+  }
+
+  /** Icon amber/highlight action */
+  .btn-icon-amber {
+    @apply p-1 rounded text-slate-400 hover:text-amber-600 transition-colors;
+  }
+
+  /** Full-width submit — base inlined */
+  .btn-submit {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg text-sm transition-colors disabled:opacity-60 w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-medium;
+  }
+
+  /** Full-width cancel — base inlined */
+  .btn-cancel {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg text-sm transition-colors disabled:opacity-60 flex-1 py-2.5 border border-slate-200 text-slate-600 hover:bg-slate-50;
+  }
+
+
+  /* ============================================================
+     BADGES & PILLS
+     NOTE: Derived badges inline the base (.badge) utilities directly.
+     ============================================================ */
+
+  /** Base badge */
+  .badge {
+    @apply px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  /** White text badge — base inlined */
+  .badge-white {
+    @apply px-2 py-0.5 rounded-full text-xs font-medium text-white;
+  }
+
+  /** Indigo badge — base inlined */
+  .badge-indigo {
+    @apply px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-700;
+  }
+
+  /** Sky badge — base inlined */
+  .badge-sky {
+    @apply px-2 py-0.5 rounded-full text-xs font-medium bg-sky-100 text-sky-700;
+  }
+
+  /** Emerald badge — base inlined */
+  .badge-emerald {
+    @apply px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700;
+  }
+
+  /** Amber badge — base inlined */
+  .badge-amber {
+    @apply px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700;
+  }
+
+  /** "Read ✓" success badge — base inlined */
+  .badge-success {
+    @apply px-2 py-0.5 rounded-full text-xs font-medium text-emerald-600 bg-emerald-50;
+  }
+
+  /** Larger category pill (base) */
+  .pill {
+    @apply px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  /** Indigo pill — base inlined */
+  .pill-indigo {
+    @apply px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-700;
+  }
+
+
+  /* ============================================================
+     FILTER PILLS
+     NOTE: Derived filter pills inline base utilities directly.
+     ============================================================ */
+
+  /** Base filter pill */
+  .filter-pill {
+    @apply px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors;
+  }
+
+  /** Active — indigo — base inlined */
+  .filter-pill-active {
+    @apply px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors bg-indigo-600 text-white;
+  }
+
+  /** Inactive — base inlined */
+  .filter-pill-inactive {
+    @apply px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors bg-white border border-slate-200 text-slate-600 hover:border-indigo-300;
+  }
+
+  /** Active — sky — base inlined */
+  .filter-pill-active-sky {
+    @apply px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors bg-sky-600 text-white;
+  }
+
+  /** Inactive — sky hover — base inlined */
+  .filter-pill-inactive-sky {
+    @apply px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors bg-white border border-slate-200 text-slate-600 hover:border-sky-300;
+  }
+
+  /** Category selector button — active */
+  .cat-btn-active {
+    @apply px-4 py-2 rounded-lg text-sm bg-indigo-600 text-white transition-colors;
+  }
+
+  /** Category selector button — inactive */
+  .cat-btn-inactive {
+    @apply px-4 py-2 rounded-lg text-sm bg-slate-50 border border-slate-200 text-slate-600 hover:border-indigo-300 transition-colors;
+  }
+
+
+  /* ============================================================
+     FORM ELEMENTS
+     ============================================================ */
+
+  .form-label {
+    @apply block text-slate-700 text-sm mb-2;
+  }
+
+  .form-label-dark {
+    @apply block text-slate-300 text-sm mb-2;
+  }
+
+  .form-input {
+    @apply w-full px-4 py-3 rounded-lg border border-slate-200 text-slate-800 focus:outline-none focus:border-indigo-400 transition-colors;
+  }
+
+  .form-input-sm {
+    @apply w-full px-3 py-2 rounded-lg border border-slate-200 text-slate-700 text-sm focus:outline-none focus:border-indigo-400 transition-colors;
+  }
+
+  .form-input-error {
+    @apply border-red-400 bg-red-50;
+  }
+
+  .form-textarea {
+    @apply w-full px-3 py-2 rounded-lg border border-slate-200 text-slate-700 text-sm focus:outline-none transition-colors resize-y;
+  }
+
+  .search-input {
+    @apply w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-200 bg-white text-slate-700 text-sm focus:outline-none transition-colors;
+  }
+
+  .auth-input {
+    @apply w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors;
+  }
+
+  .form-error {
+    @apply text-red-500 text-xs mt-1;
+  }
+
+  .form-error-banner {
+    @apply bg-red-500/10 border border-red-500/30 text-red-400 text-sm px-4 py-3 rounded-lg;
+  }
+
+
+  /* ============================================================
+     DATA TABLES
+     ============================================================ */
+
+  .data-table {
+    @apply w-full text-sm;
+  }
+
+  .table-head-row {
+    @apply border-b border-slate-100;
+  }
+
+  .table-head-bg {
+    @apply border-b border-slate-100 bg-slate-50;
+  }
+
+  .table-th {
+    @apply text-left text-slate-500 font-medium py-2 pr-4;
+  }
+
+  .table-th-last {
+    @apply text-left text-slate-500 font-medium py-2;
+  }
+
+  .table-body {
+    @apply divide-y divide-slate-50;
+  }
+
+  .table-row {
+    @apply hover:bg-slate-50 transition-colors;
+  }
+
+  .table-td {
+    @apply py-3 pr-4 text-slate-600;
+  }
+
+  .table-td-last {
+    @apply py-3 text-slate-500;
+  }
+
+  .table-td-primary {
+    @apply py-3 pr-4 text-slate-800 font-medium;
+  }
+
+
+  /* ============================================================
+     MODALS
+     NOTE: modal-box-sm/md inline the base utilities directly.
+     ============================================================ */
+
+  .modal-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50;
+  }
+
+  /** Base modal box */
+  .modal-box {
+    @apply bg-white rounded-2xl p-6 shadow-xl w-full;
+  }
+
+  /** Narrow modal — base inlined */
+  .modal-box-sm {
+    @apply bg-white rounded-2xl p-6 shadow-xl w-full max-w-sm;
+  }
+
+  /** Medium modal — base inlined */
+  .modal-box-md {
+    @apply bg-white rounded-2xl p-6 shadow-xl w-full max-w-md;
+  }
+
+
+  /* ============================================================
+     EMPTY STATES
+     ============================================================ */
+
+  .empty-state {
+    @apply text-center py-16 bg-white rounded-2xl border border-slate-100;
+  }
+
+  .empty-state-icon {
+    @apply mx-auto mb-3 text-slate-300;
+  }
+
+  .empty-state-text {
+    @apply text-slate-500;
+  }
+
+  .empty-state-sub {
+    @apply text-slate-400 text-sm;
+  }
+
+  .empty-chart {
+    @apply h-full flex items-center justify-center text-slate-400 text-sm;
+  }
+
+  .empty-panel {
+    @apply py-10 text-center text-slate-400;
+  }
+
+
+  /* ============================================================
+     PROGRESS BAR
+     ============================================================ */
+
+  .progress-track {
+    @apply bg-slate-100 rounded-full h-2;
+  }
+
+  .progress-fill {
+    @apply h-2 rounded-full transition-all;
+  }
+
+  .progress-track-thin {
+    @apply bg-slate-100 rounded-full h-1.5;
+  }
+
+  .progress-fill-thin {
+    @apply h-1.5 rounded-full transition-all;
+  }
+
+
+  /* ============================================================
+     SPINNERS / LOADERS
+     ============================================================ */
+
+  .spinner {
+    @apply rounded-full border-2 border-white/30 border-t-white animate-spin;
+  }
+
+  .spinner-sm {
+    @apply w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin;
+  }
+
+  .spinner-md {
+    @apply w-5 h-5 rounded-full border-2 border-white/30 border-t-white animate-spin;
+  }
+
+
+  /* ============================================================
+     CHART COMPONENTS
+     ============================================================ */
+
+  .chart-card {
+    @apply bg-white rounded-2xl p-6 border border-slate-100 shadow-sm;
+  }
+
+  .chart-title {
+    @apply text-slate-700 mb-1;
+  }
+
+  .chart-subtitle {
+    @apply text-slate-400 text-sm mb-5;
+  }
+
+
+  /* ============================================================
+     CHART LEGEND
+     ============================================================ */
+
+  .legend-item {
+    @apply flex items-center gap-2 text-sm;
+  }
+
+  .legend-dot {
+    @apply w-3 h-3 rounded-full flex-shrink-0;
+  }
+
+  .legend-label {
+    @apply text-slate-600 flex-1;
+  }
+
+  .legend-value {
+    @apply text-slate-800 font-medium;
+  }
+
+
+  /* ============================================================
+     ARTICLE CARDS
+     ============================================================ */
+
+  .article-card {
+    @apply bg-white rounded-2xl border border-slate-100 p-5 hover:shadow-md transition-all;
+  }
+
+  .article-card-student {
+    @apply bg-white rounded-2xl border border-slate-100 p-5 hover:shadow-md hover:border-sky-200 transition-all;
+  }
+
+  .article-analytics-row {
+    @apply p-4 rounded-xl border border-slate-100 hover:border-slate-200 transition-colors;
+  }
+
+
+  /* ============================================================
+     CONTENT BLOCK EDITOR
+     ============================================================ */
+
+  .block-editor {
+    @apply bg-white border border-slate-200 rounded-xl overflow-hidden;
+  }
+
+  .block-editor-header {
+    @apply flex items-center gap-3 px-4 py-3 bg-slate-50 border-b border-slate-200;
+  }
+
+  .block-add-btn {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-dashed border-slate-300 text-slate-500 text-sm hover:border-indigo-400 hover:text-indigo-600 transition-colors;
+  }
+
+
+  /* ============================================================
+     HIGHLIGHTS
+     ============================================================ */
+
+  .highlight-card {
+    @apply bg-amber-50 border border-amber-100 rounded-xl p-3;
+  }
+
+  .highlight-sidebar {
+    @apply bg-white rounded-2xl border border-amber-200 shadow-sm sticky top-0;
+  }
+
+  .highlight-hint {
+    @apply flex items-center gap-2 text-slate-400 text-sm bg-amber-50 border border-amber-100 rounded-xl px-4 py-3;
+  }
+
+  .selection-tooltip {
+    @apply bg-slate-900 rounded-xl shadow-xl px-3 py-2 flex items-center gap-2 text-sm;
+  }
+
+
+  /* ============================================================
+     AUTH PAGES
+     ============================================================ */
+
+  .auth-page {
+    @apply min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 flex items-center justify-center p-4;
+  }
+
+  .auth-card {
+    @apply bg-white/5 border border-white/10 rounded-2xl p-8;
+  }
+
+  .demo-btn-teacher {
+    @apply flex-1 py-2 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-indigo-300 text-sm hover:bg-indigo-600/30 transition-colors;
+  }
+
+  .demo-btn-student {
+    @apply flex-1 py-2 rounded-lg bg-sky-600/20 border border-sky-500/30 text-sky-300 text-sm hover:bg-sky-600/30 transition-colors;
+  }
+
+  .auth-link {
+    @apply text-indigo-400 hover:text-indigo-300;
+  }
+
+
+  /* ============================================================
+     LANDING PAGE
+     ============================================================ */
+
+  .landing-page {
+    @apply min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900;
+  }
+
+  .landing-section {
+    @apply max-w-6xl mx-auto px-6;
+  }
+
+  .feature-card {
+    @apply bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors;
+  }
+
+  .hero-badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-sm;
+  }
+
+  .demo-creds {
+    @apply inline-flex flex-col sm:flex-row gap-4 bg-white/5 border border-white/10 rounded-2xl px-8 py-5 text-left;
+  }
+
+  .demo-creds-divider {
+    @apply border-l border-white/10 hidden sm:block;
+  }
+
+  .landing-cta-primary {
+    @apply inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-colors;
+  }
+
+  .landing-cta-secondary {
+    @apply inline-flex items-center gap-2 px-8 py-3 rounded-xl border border-white/20 text-white hover:bg-white/5 transition-colors;
+  }
+
+
+  /* ============================================================
+     PROFILE & TABS
+     NOTE: tab-btn-active/inactive inline the base utilities directly.
+     ============================================================ */
+
+  .tab-bar {
+    @apply flex gap-1 bg-slate-100 rounded-xl p-1 w-fit;
+  }
+
+  /** Base tab button */
+  .tab-btn {
+    @apply px-5 py-2 rounded-lg text-sm font-medium transition-colors capitalize;
+  }
+
+  /** Active tab — base inlined */
+  .tab-btn-active {
+    @apply px-5 py-2 rounded-lg text-sm font-medium transition-colors capitalize bg-white text-slate-800 shadow-sm;
+  }
+
+  /** Inactive tab — base inlined */
+  .tab-btn-inactive {
+    @apply px-5 py-2 rounded-lg text-sm font-medium transition-colors capitalize text-slate-500 hover:text-slate-700;
+  }
+
+  .highlight-group {
+    @apply bg-white rounded-2xl border border-slate-100 overflow-hidden;
+  }
+
+  .highlight-group-header {
+    @apply px-5 py-4 border-b border-slate-100 flex items-center justify-between;
+  }
+
+  .highlight-entry {
+    @apply px-5 py-4 flex gap-4;
+  }
+
+  .highlight-bar {
+    @apply w-1 rounded-full bg-amber-400 flex-shrink-0;
+  }
+
+  .note-display {
+    @apply flex items-start gap-2 bg-slate-50 rounded-lg px-3 py-2;
+  }
+
+
+  /* ============================================================
+     MISC UTILITY PATTERNS
+     ============================================================ */
+
+  .view-all-link {
+    @apply text-indigo-600 hover:text-indigo-700 text-sm flex items-center gap-1;
+  }
+
+  .view-all-link-sky {
+    @apply text-sky-600 hover:text-sky-700 text-sm flex items-center gap-1;
+  }
+
+  .article-link {
+    @apply text-sky-700 hover:underline truncate max-w-xs block;
+  }
+
+  .continue-reading-item {
+    @apply flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors;
+  }
+
+  .podium-card {
+    @apply text-center p-4 rounded-xl bg-slate-50;
+  }
+
+  .avatar-md {
+    @apply w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold;
+  }
+
+  .avatar-lg {
+    @apply w-9 h-9 rounded-xl flex items-center justify-center;
+  }
+
+  .pulse-dot {
+    @apply w-2 h-2 rounded-full animate-pulse;
+  }
+}
