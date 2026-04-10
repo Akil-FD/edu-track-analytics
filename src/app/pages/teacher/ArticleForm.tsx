@@ -214,12 +214,20 @@ export default function ArticleForm() {
                 {block.type === 'text' && (
                   <p className="text-slate-700 whitespace-pre-wrap leading-relaxed">{block.content}</p>
                 )}
-                {block.type === 'image' && block.content && (
-                  <img src={block.content} alt="" className="rounded-xl w-full object-cover max-h-80" />
+                {block.type === 'image' && block.fileUrl && (
+                  <img src={block.fileUrl} alt="" className="rounded-xl w-full object-cover max-h-80" />
                 )}
-                {block.type === 'video' && block.content && (
-                  <div className="aspect-video rounded-xl overflow-hidden bg-slate-900">
-                    <video src={block.content} controls className="w-full h-full" />
+                {block.type === 'video' && block.fileUrl && (
+                  <div className="rounded-lg overflow-hidden border border-slate-200 aspect-video bg-slate-900 flex items-center justify-center">
+                    {block.fileUrl.includes('youtube.com') || block.fileUrl.includes('youtu.be') ? (
+                      <iframe
+                        src={block.fileUrl.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')}
+                        className="w-full h-full"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <video src={block.fileUrl} controls className="w-full h-full" />
+                    )}
                   </div>
                 )}
                 {block.type === "3d" && (

@@ -54,15 +54,15 @@ export default function BlockEditor({
                     <div className="space-y-3">
                         <input
                             type="url"
-                            value={block.content}
-                            onChange={e => onChange({ ...block, content: e.target.value })}
+                            value={block.fileUrl}
+                            onChange={e => onChange({ ...block, fileUrl: e.target.value })}
                             placeholder="https://example.com/image.jpg"
                             className="w-full px-3 py-2 rounded-lg border border-slate-200 text-slate-700 text-sm focus:outline-none focus:border-indigo-400"
                         />
-                        {block.content && (
+                        {block.fileUrl && (
                             <div className="rounded-lg overflow-hidden border border-slate-200 max-h-48">
                                 <img
-                                    src={block.content}
+                                    src={block.fileUrl}
                                     alt="Preview"
                                     className="w-full h-48 object-cover"
                                     onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -75,21 +75,21 @@ export default function BlockEditor({
                     <div className="space-y-3">
                         <input
                             type="url"
-                            value={block.content}
-                            onChange={e => onChange({ ...block, content: e.target.value })}
+                            value={block.fileUrl}
+                            onChange={e => onChange({ ...block, fileUrl: e.target.value })}
                             placeholder="YouTube URL or video link..."
                             className="w-full px-3 py-2 rounded-lg border border-slate-200 text-slate-700 text-sm focus:outline-none focus:border-indigo-400"
                         />
-                        {block.content && (
+                        {block.fileUrl && (
                             <div className="rounded-lg overflow-hidden border border-slate-200 aspect-video bg-slate-900 flex items-center justify-center">
-                                {block.content.includes('youtube.com') || block.content.includes('youtu.be') ? (
+                                {block.fileUrl.includes('youtube.com') || block.fileUrl.includes('youtu.be') ? (
                                     <iframe
-                                        src={block.content.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')}
+                                        src={block.fileUrl.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')}
                                         className="w-full h-full"
                                         allowFullScreen
                                     />
                                 ) : (
-                                    <video src={block.content} controls className="w-full h-full" />
+                                    <video src={block.fileUrl} controls className="w-full h-full" />
                                 )}
                             </div>
                         )}

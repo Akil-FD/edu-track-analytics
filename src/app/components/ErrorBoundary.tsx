@@ -1,5 +1,4 @@
 import { Component, ErrorInfo, ReactNode, useState } from "react";
-import { Link } from "react-router";
 import { AlertTriangle, Home, RefreshCw } from "lucide-react";
 
 interface Props {

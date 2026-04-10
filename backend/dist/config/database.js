@@ -12,18 +12,18 @@ const connectDatabase = async () => {
         const conn = await mongoose_1.default.connect(env_1.config.MONGO_URI, {
             autoIndex: env_1.config.NODE_ENV !== 'production',
         });
-        console.log(`✅ MongoDB connected: ${conn.connection.host}`);
+        console.log(`MongoDB connected: ${conn.connection.host}`);
     }
     catch (error) {
         const message = error instanceof Error ? error.message : 'Unknown error';
-        console.error(`❌ MongoDB connection failed: ${message}`);
+        console.error(` MongoDB connection failed: ${message}`);
         process.exit(1);
     }
 };
 exports.connectDatabase = connectDatabase;
 const disconnectDatabase = async () => {
     await mongoose_1.default.disconnect();
-    console.log('🔌 MongoDB disconnected');
+    console.log(' MongoDB disconnected');
 };
 exports.disconnectDatabase = disconnectDatabase;
 //# sourceMappingURL=database.js.map

@@ -15,7 +15,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/api": "http://localhost:5000"
+      "/api": "https://edu-track-analytics.onrender.com"
     }
   },
   // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
